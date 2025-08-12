@@ -1,5 +1,70 @@
-# Vue 3 + TypeScript + Vite
+# Финансовый трекер с чатом (Real-time Finance Tracker with Chat)
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Описание
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+Это веб-приложение для учета личных финансов с возможностью совместного редактирования в реальном времени и встроенным чатом. Приложение использует Socket.IO для синхронизации данных между клиентами.
+
+## Основные функции
+
+- Учет доходов и расходов по категориям:
+- Зарплата
+- Магазины
+- Рестораны
+- Путешествия
+- Группировка записей по датам
+- Встроенный чат для обсуждения финансов
+- Реальная синхронизация данных между всеми подключенными пользователями
+- Визуализация расходов в виде круговой диаграммы
+
+## Технологии
+
+### Frontend
+
+- Vue 3 (Composition API)
+- Handsontable
+- Socket.IO-client
+- SCSS
+
+### Backend
+
+- Node.js + Express
+- Socket.IO сервер
+
+## Установка и запуск
+
+### Требования
+
+- Node.js (v16+)
+- npm или yarn
+
+### Запуск сервера
+
+1. Перейдите в папку сервера:
+
+   cd server
+
+2. Установите зависимости:
+
+   npm install
+
+3. Запустите сервер:
+
+   npm start
+
+   Сервер будет доступен по адресу: http://localhost:3000
+
+### Запуск клиента
+
+1. Перейдите в папку клиента:
+
+   cd client
+
+2. Установите зависимости:
+
+   npm install
+
+3. Запустите приложение:
+
+   npm run dev
+
+   Приложение будет доступно по адресу: http://localhost:5173 (или другому порту, который укажет Vite)
