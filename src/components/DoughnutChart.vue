@@ -65,7 +65,7 @@ export default {
         chartInstance = new Chart(ctx, {
           type: 'doughnut',
           data: {
-            labels: ['Магазины', 'Рестораны', 'Путешествия'],
+            labels: ['Путешествия', 'Магазины', 'Рестораны'],
             datasets: [
               {
                 data: [props.value1, props.value2, props.value3],

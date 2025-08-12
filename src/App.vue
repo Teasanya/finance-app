@@ -161,7 +161,6 @@ const hotSettings = ref({
     { type: 'numeric', format: '0,0' },
   ],
   rowHeaders: true,
-  minSpareRow: 1,
   width: 800,
   height: 'auto',
   licenseKey: 'non-commercial-and-evaluation',
@@ -204,62 +203,52 @@ const addRecord = (): void => {
   );
 
   if (existingIndex >= 0) {
+    const row = tableData.value[existingIndex];
     switch (category) {
       case 'salary':
-        tableData.value[existingIndex][1] += amount;
+        row[1] += amount;
         break;
       case 'shops':
-        tableData.value[existingIndex][2] += amount;
+        row[2] += amount;
         break;
       case 'restaurants':
-        tableData.value[existingIndex][3] += amount;
+        row[3] += amount;
         break;
       case 'travel':
-        tableData.value[existingIndex][4] += amount;
+        row[4] += amount;
         break;
     }
   } else {
-    const newRow: FinancialRecordArray = [date, 0, 0, 0, 0];
-
-    switch (category) {
-      case 'salary':
-        newRow[1] = amount;
-        break;
-      case 'shops':
-        newRow[2] = amount;
-        break;
-      case 'restaurants':
-        newRow[3] = amount;
-        break;
-      case 'travel':
-        newRow[4] = amount;
-        break;
-    }
+    const newRow: FinancialRecord = [
+      date,
+      category === 'salary' ? amount : 0,
+      category === 'shops' ? amount : 0,
+      category === 'restaurants' ? amount : 0,
+      category === 'travel' ? amount : 0,
+    ];
 
     tableData.value.push(newRow);
-
-    tableData.value.sort(
-      (a: FinancialRecordArray, b: FinancialRecordArray) =>
-        new Date(a[0]).getTime() - new Date(b[0]).getTime()
-    );
   }
 
+  tableData.value.sort(
+    (a: FinancialRecordArray, b: FinancialRecordArray) =>
+      new Date(a[0]).getTime() - new Date(b[0]).getTime()
+  );
+
   if (hotTable.value?.hotInstance) {
-    console.log(tableData.value);
     hotTable.value.hotInstance.loadData(tableData.value);
   }
 
-  const formattedData: FinancialRecordObject[] = tableData.value.map(
-    (row: FinancialRecordArray) => ({
+  const filteredData = tableData.value.filter((row) => row[0] !== '');
+  sendTableData(
+    filteredData.map((row) => ({
       date: row[0],
       salary: row[1],
       shops: row[2],
       restaurants: row[3],
       travel: row[4],
-    })
+    }))
   );
-
-  sendTableData(formattedData);
 
   newRecord.value = {
     amount: null,
